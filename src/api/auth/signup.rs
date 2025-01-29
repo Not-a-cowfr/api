@@ -1,5 +1,5 @@
 use actix_web::web::Json;
-use actix_web::{post, Responder};
+use actix_web::{Responder, post};
 use serde::Deserialize;
 
 use crate::api::auth::ApiResponse;
