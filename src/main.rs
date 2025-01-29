@@ -7,7 +7,6 @@ use api::auth::login::login;
 use api::auth::signup::signup;
 use image::{GenericImageView, ImageError};
 use minifb::{Window, WindowOptions};
-use rand::seq::SliceRandom;
 use std::thread;
 use rand::prelude::IndexedRandom;
 
@@ -84,7 +83,7 @@ fn motivation() -> Result<(), ImageError> {
 		..WindowOptions::default()
 	};
 
-	let mut rng = rand::thread_rng(); 
+	let mut rng = rand::rng();
 
 	loop {
 		let title = PHRASES.choose(&mut rng).unwrap();

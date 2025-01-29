@@ -3,7 +3,7 @@ use actix_web::{post, Responder};
 use serde::Deserialize;
 
 use crate::api::auth::ApiResponse;
-use crate::repository::auth::add_user;
+use crate::repository::auth::signup::add_user;
 
 #[derive(Debug, Deserialize)]
 pub struct UserInfo {
