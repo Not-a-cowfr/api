@@ -1,0 +1,1 @@
+keeping Mr. Washee Washee on screen at all times is a requirement
