@@ -7,12 +7,16 @@ use actix_web::middleware::Logger;
 use actix_web::{App, HttpServer, web};
 use api::auth::login::login;
 use api::auth::signup::signup;
+use api::auth::verify::confirm::confirm;
+use api::auth::verify::send::send;
 use image::{GenericImageView, ImageError};
 use minifb::{Window, WindowOptions};
 use rand::prelude::IndexedRandom;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
+	dotenv::dotenv().ok();
+
 	std::env::set_var("RUST_LOG", "debug");
 	std::env::set_var("RUST_BACKTRACE", "1");
 	env_logger::init();
@@ -26,9 +30,12 @@ async fn main() -> std::io::Result<()> {
 	});
 
 	HttpServer::new(move || {
-		App::new()
-			.wrap(Logger::default())
-			.service(web::scope("/auth").service(login).service(signup))
+		App::new().wrap(Logger::default()).service(
+			web::scope("/auth")
+				.service(login)
+				.service(signup)
+				.service(web::scope("/verify").service(send).service(confirm)),
+		)
 	})
 	.bind(("127.0.0.1", 8080))?
 	.run()
@@ -42,6 +49,7 @@ const PHRASES: &[&str] = &[
 	"You no fix link.exe, you failure",
 	"For each time you use ai I slap you 3 time",
 	"Each error you pay 2 cent",
+	"You finger no bleed, you no try hard enough",
 ];
 
 fn motivation() -> Result<(), ImageError> {

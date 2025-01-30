@@ -2,6 +2,7 @@ use serde::Serialize;
 
 pub mod login;
 pub mod signup;
+pub mod verify;
 
 #[derive(Serialize)]
 pub struct ApiResponse {

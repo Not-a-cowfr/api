@@ -8,9 +8,10 @@ pub async fn create_user_db() -> Result<()> {
             name TEXT NOT NULL,
             username TEXT NOT NULL,
             email TEXT NOT NULL,
+			verification_code TEXT,
             confirmed BOOLEAN NOT NULL,
+            two_factor BOOLEAN NOT NULL,
             password TEXT NOT NULL,
-            twofactor BOOLEAN NOT NULL,
             auth_key TEXT
         )",
 		[],

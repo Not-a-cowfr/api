@@ -93,7 +93,7 @@ pub async fn add_user(
 
 	let conn = Connection::open("src/repository/users.db")?;
 	conn.execute(
-		"INSERT INTO users (id, name, username, email, confirmed, password, twofactor, auth_key)
+		"INSERT INTO users (id, name, username, email, confirmed, password, two_factor, auth_key)
          VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8)",
 		params![
 			user_id,

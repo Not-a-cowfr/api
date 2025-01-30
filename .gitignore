@@ -4,3 +4,5 @@
 /httpRequests/
 /dataSources/
 /dataSources.local.xml
+.env
+*.db
