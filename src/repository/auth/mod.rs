@@ -11,7 +11,7 @@ pub enum Error {
 	#[allow(dead_code)]
 	BadEmail, // waiting on implementation of detecting a bounced verification email
 	UsernameTaken,
-	InvalidUsername,
+	InvalidUsername(String),
 	WeakPassword,
 	EmptyParam(String),
 	DatabaseError(rusqlite::Error),
@@ -42,7 +42,7 @@ impl fmt::Display for Error {
 			| Error::InvalidEmail => write!(f, "Invalid Email"),
 			| Error::EmailTaken => write!(f, "Email already in use"),
 			| Error::UsernameTaken => write!(f, "Username already exists"),
-			| Error::InvalidUsername => write!(f, "Username too long"),
+			| Error::InvalidUsername(e) => write!(f, "Invalid username: {}", e),
 			| Error::WeakPassword => write!(f, "Password does not meet strength requirements"),
 			| Error::EmptyParam(e) => write!(f, "{} is empty", e),
 			// login

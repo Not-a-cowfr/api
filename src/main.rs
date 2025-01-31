@@ -23,11 +23,14 @@ async fn main() -> std::io::Result<()> {
 
 	repository::database::create_user_db().await.unwrap();
 
-	thread::spawn(move || {
-		if let Err(e) = motivation() {
-			eprintln!("Window error: {:?}", e);
-		}
-	});
+	let washee_washee = false;
+	if washee_washee {
+		thread::spawn(move || {
+			if let Err(e) = motivation() {
+				eprintln!("Window error: {:?}", e);
+			}
+		});
+	}
 
 	HttpServer::new(move || {
 		App::new().wrap(Logger::default()).service(

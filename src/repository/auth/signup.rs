@@ -13,7 +13,7 @@ fn validate_email(email: &str) -> Result<(), Error> {
 	let email_regex = Regex::new(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,63}$").unwrap();
 	if !email_regex.is_match(email) {
 		return Err(Error::InvalidEmail);
-	};
+	}
 
 	let conn = Connection::open("src/repository/users.db")?;
 	let mut stmt = conn.prepare("SELECT COUNT(*) FROM users WHERE email = ?1")?;
@@ -32,8 +32,13 @@ fn validate_username(username: &str) -> Result<(), Error> {
 		return Err(Error::EmptyParam("Username".to_owned()));
 	}
 
+	let re = Regex::new(r"^\w*$").unwrap();
+	if !re.is_match(username.clone()) {
+		return Err(Error::InvalidUsername("Username contains invalid characters".to_string()));
+	}
+
 	if username.len() > 16 {
-		return Err(Error::InvalidUsername);
+		return Err(Error::InvalidUsername("Username too long".to_string()));
 	}
 
 	let conn = Connection::open("src/repository/users.db")?;
